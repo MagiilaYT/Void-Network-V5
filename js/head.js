@@ -644,8 +644,6 @@ window.vnCloakText=function(s){
             // Tier 1: Top nav pages — PRERENDER eagerly
             where: { href_matches: [
               '/', '/home.html', '/g.html', '/view.html', '/p.html',
-              '/library', '/courses', '/faculty', '/admissions',
-              '/resources', '/enroll'
             ]},
             eagerness: 'eager'
           },
