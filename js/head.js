@@ -414,38 +414,29 @@ window.vnCloakText=function(s){
   // |canvas\s*lms)/i — those tokens on a non-brand hostname fire the
   // detectMasqueradeProxyRuntime detector for +30 and an instant report.
   // No platform names — just neutral school-vocabulary nouns.
-  var COVERS = [
-    'lesson', 'lessons', 'practice', 'tutorial', 'workbook', 'notebook',
-    'journal', 'syllabus', 'homework', 'assignment', 'project', 'essay',
-    'reading', 'writing', 'grammar', 'vocab', 'typing', 'spelling',
-    'review', 'study', 'research', 'textbook', 'exam', 'quiz',
-    'chapter', 'unit', 'module', 'course', 'lecture', 'seminar',
-    'workshop', 'library', 'archive'
-  ];
-
   // Canonical pathnames → cover stem. Both /foo.html and /foo are accepted
   // (Caddy/Elysia accept both). Update both halves together.
   var STEMS = {
-    '/': 'home', '/home.html': 'home', '/home': 'home',
-    '/g.html': 'g', '/g': 'g',
-    '/view.html': 'view', '/view': 'view',
-    '/p.html': 'p', '/p': 'p',
-    '/s.html': 's', '/s': 's',
-    '/a.html': 'a', '/a': 'a',
-    '/c.html': 'c', '/c': 'c',
-    '/cd.html': 'cd', '/cd': 'cd',
-    '/pg.html': 'pg', '/pg': 'pg',
-    '/vg.html': 'vg', '/vg': 'vg',
-    '/vxl.html': 'vxl', '/vxl': 'vxl',
-    '/about.html': 'about', '/about': 'about',
-    '/emulator.html': 'emulator', '/emulator': 'emulator',
-    '/code-editor.html': 'code-editor', '/code-editor': 'code-editor',
-    '/neal-fun.html': 'neal-fun', '/neal-fun': 'neal-fun',
-    '/blooketbot.html': 'blooketbot', '/blooketbot': 'blooketbot',
-    '/voidtube.html': 'voidtube', '/voidtube': 'voidtube',
-    '/voidmusic.html': 'voidmusic', '/voidmusic': 'voidmusic',
-    '/rblx.html': 'rblx', '/rblx': 'rblx',
-    '/vnprononauth.html': 'vnprononauth', '/vnprononauth': 'vnprononauth'
+    '/': 'index.html'
+    '/g.html': '/g.html'
+    '/view.html': '/view.html'
+    '/p.html': '/p.html'
+    '/s.html': '/s.html'
+    '/a.html': '/a.html'
+    '/c.html': '/c.html'
+    '/cd.html': '/cd.html'
+    '/pg.html': '/pg.html'
+    '/vg.html': '/vg.html'
+    '/vxl.html': '/vxl.html'
+    '/about.html': '/about.html'
+    '/emulator.html': '/emulator.html'
+    '/code-editor.html': '/code-editor.html']
+    '/neal-fun.html': '/neal-fun.html'
+    '/blooketbot.html': '/blooketbot.html'
+    '/voidtube.html': '/voidtube.html'
+    '/voidmusic.html': '/voidmusic.html'
+    '/rblx.html': '/rblx.html'
+    '/vnprononauth.html': '/vnprononauth.html'
   };
 
   function _pickCover() {
