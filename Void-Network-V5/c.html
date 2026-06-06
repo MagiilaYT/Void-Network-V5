@@ -1,0 +1,153 @@
+<!DOCTYPE html><html lang="en"><head><style id="vn-critical-css">:root { --matte-bg-base: #050505; --matte-bg-elevated: #0a0a0a; --matte-bg-card: #0f0f0f; --matte-bg-hover: #141414; --matte-border-subtle: rgba(255, 255, 255, 0.04); --matte-border-default: rgba(255, 255, 255, 0.06); --matte-border-hover: rgba(255, 255, 255, 0.1); --matte-text-primary: #f0f0f0; --matte-text-secondary: rgba(255, 255, 255, 0.6); --matte-text-muted: rgba(255, 255, 255, 0.35); --matte-shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3); --matte-shadow-md: 0 4px 16px rgba(0, 0, 0, 0.4); --matte-shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.5); --matte-radius-sm: 10px; --matte-radius-md: 14px; --matte-radius-lg: 18px; --matte-radius-xl: 22px; } * { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; text-rendering: optimizeLegibility; } body { background: var(--matte-bg-base) !important; color: var(--matte-text-primary) !important; } body::before { background: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(255, 255, 255, 0.015) 0%, transparent 100%) !important; } .page-title, .title, .holographic-title, .welcome-title, h1.page-title { background: linear-gradient(180deg, #4a4a4a 0%, #ffffff 100%) !important; -webkit-background-clip: text !important; background-clip: text !important; -webkit-text-fill-color: transparent !important; text-shadow: none !important; letter-spacing: -0.02em !important; } .section-title { color: var(--matte-text-primary) !important; font-weight: 600 !important; letter-spacing: -0.01em !important; border-bottom-color: var(--matte-border-subtle) !important; } .search-bar, input[type="text"], input[type="search"], textarea, select { background: var(--matte-bg-card) !important; border: 1px solid var(--matte-border-default) !important; border-radius: var(--matte-radius-lg) !important; color: var(--matte-text-primary) !important; box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2) !important; } .search-bar:focus, input[type="text"]:focus, input[type="search"]:focus, textarea:focus, select:focus { border-color: var(--matte-border-hover) !important; background: var(--matte-bg-hover) !important; outline: none !important; } .search-bar::placeholder, input::placeholder, textarea::placeholder { color: var(--matte-text-muted) !important; } .tile-card, .app-card { background: var(--matte-bg-card) !important; border: 1px solid var(--matte-border-subtle) !important; border-radius: var(--matte-radius-lg) !important; box-shadow: var(--matte-shadow-sm) !important; overflow: hidden !important; } .tile-card:hover, .app-card:hover { border-color: var(--matte-border-hover) !important; box-shadow: var(--matte-shadow-lg) !important; background: var(--matte-bg-hover) !important; } .tile-card::before, .app-card::before { display: none !important; } .tile-image { border-radius: var(--matte-radius-lg) !important; } .tile-info { background: linear-gradient(0deg, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.4) 60%, transparent 100%) !important; padding: 1.25rem !important; } .tile-title { text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8) !important; font-weight: 600 !important; letter-spacing: -0.01em !important; } .setting-item, .contact-container { background: var(--matte-bg-card) !important; border: 1px solid var(--matte-border-subtle) !important; border-radius: var(--matte-radius-lg) !important; box-shadow: var(--matte-shadow-sm) !important; } .setting-item:hover { border-color: var(--matte-border-default) !important; background: var(--matte-bg-hover) !important; } .toggle-switch { background: rgba(255, 255, 255, 0.06) !important; border: 1px solid var(--matte-border-subtle) !important; } .toggle-switch.active { background: rgba(34, 197, 94, 0.2) !important; border-color: rgba(34, 197, 94, 0.3) !important; } .toggle-slider { background: linear-gradient(180deg, #ffffff 0%, #e0e0e0 100%) !important; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25) !important; } .browser-header, .nav-bar, header:not(.void-dynamic-island):not([data-dynamic-island]) { background: rgba(8, 8, 8, 0.95) !important; border-bottom: 1px solid var(--matte-border-subtle) !important; box-shadow: 0 4px 24px rgba(0, 0, 0, 0.5) !important; } .browser-header::before, .welcome-screen::before { display: none !important; } .welcome-screen, .popup, .modal, #voidWarningPopup, #performancePopupOverlay > div, #welcomePopupOverlay > div { background: var(--matte-bg-elevated) !important; border: 1px solid var(--matte-border-default) !important; border-radius: var(--matte-radius-xl) !important; box-shadow: 0 32px 64px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.03) !important; } .browser-iframe { border-radius: var(--matte-radius-md) !important; box-shadow: var(--matte-shadow-lg) !important; } .url-bar, .url-input { background: rgba(0, 0, 0, 0.4) !important; border: 1px solid var(--matte-border-subtle) !important; border-radius: var(--matte-radius-lg) !important; color: var(--matte-text-primary) !important; } .search-icon, .icon { color: var(--matte-text-muted) !important; } .loading, .no-results { color: var(--matte-text-secondary) !important; } .no-results h2 { color: var(--matte-text-primary) !important; } ::-webkit-scrollbar { width: 10px; height: 10px; } ::-webkit-scrollbar-track { background: var(--matte-bg-base); } ::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.1); border-radius: 5px; border: 2px solid var(--matte-bg-base); } ::-webkit-scrollbar-thumb:hover { background: rgba(255, 255, 255, 0.18); } ::selection { background: rgba(255, 255, 255, 0.15); color: #ffffff; } .quality-slider { background: rgba(255, 255, 255, 0.08) !important; } .quality-slider::-webkit-slider-thumb { background: linear-gradient(180deg, #ffffff 0%, #d0d0d0 100%) !important; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4) !important; } .quality-description { background: rgba(255, 255, 255, 0.03) !important; border-radius: var(--matte-radius-sm) !important; } .iframe-loading-overlay { background: var(--matte-bg-base) !important; } .iframe-loading-spinner { border-color: var(--matte-border-default) !important; border-top-color: var(--matte-text-secondary) !important; } .tile-grid { gap: 1.5rem !important; } .user-id-display { background: rgba(0, 0, 0, 0.3) !important; border: 1px solid var(--matte-border-subtle) !important; border-radius: var(--matte-radius-md) !important; } .user-id-text { color: rgba(100, 220, 100, 0.8) !important; } #debugInfo { color: var(--matte-text-muted) !important; } @media (max-width: 768px) { .tile-grid { gap: 1rem !important; } } @supports (-webkit-touch-callout: none) { body { min-height: -webkit-fill-available; } nav.void-dynamic-island { bottom: calc(20px + env(safe-area-inset-bottom, 0px)) !important; } } @media (max-width: 768px) { input, textarea, select, .search-bar { font-size: 16px !important; } iframe { -webkit-overflow-scrolling: touch; } }@view-transition{navigation:auto}::view-transition-old(root),::view-transition-new(root){animation-duration:.18s;animation-timing-function:cubic-bezier(.2,0,0,1)}</style>
+
+    <meta name="referrer" content="no-referrer-when-downgrade">
+
+    <script defer="" src="js/script.js" data-website-id="b9510d8e-e1e5-4dff-ad86-297ebece5574"></script>
+    <noscript><img src="/t/p?payload=%7B%22website%22%3A%22b9510d8e-e1e5-4dff-ad86-297ebece5574%22%2C%22url%22%3A%22%2F%22%2C%22hostname%22%3A%22vng.lol%22%2C%22name%22%3A%22pageview%22%7D" style="display:none;"></noscript>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VN Contact</title>
+<meta name="description" content="Void Network - The premier educational gaming platform for children. Explore hundreds of interactive learning games, STEM challenges, curriculum-aligned activities, and safe educational experiences designed to develop critical thinking, problem-solving, and creativity in kids of all ages.">
+    <meta name="keywords" content="educational games, learning games for kids, children education, STEM games, interactive learning, educational platform, kids learning games, safe games for children, curriculum aligned games, brain training games, Void Network, educational activities, kids STEM, math games, science games, reading games, spelling games, geography games, typing games, logic puzzles, memory games, children development, early childhood education, K-12 learning, classroom games">
+    <meta name="author" content="Void Network">
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="language" content="English">
+    <meta name="revisit-after" content="7 days">
+    <meta name="rating" content="General">
+    <meta name="distribution" content="Global">
+    <meta name="category" content="Education">
+    <meta name="classification" content="Educational Games for Children">
+    <meta name="target-audience" content="children, parents, educators, teachers, schools">
+    <meta name="subject" content="Education, Learning Games, Children Development, STEM, Interactive Learning">
+    <meta name="content-rating" content="kids-safe">
+    <meta name="child-safe" content="true">
+    <meta name="educational-content" content="true">
+    <meta name="audience" content="K-12 Students, Parents, Educators, Teachers">
+    <meta name="topic" content="Educational Games, Learning Activities, STEM Education, Curriculum-Aligned Content">
+    <meta name="coverage" content="Worldwide">
+    <meta name="age-range" content="5-18">
+    <meta name="dc.title" content="Void Network - Educational Games for Children">
+    <meta name="dc.creator" content="Void Network">
+    <meta name="dc.subject" content="Educational Games, Learning, STEM, Children Development, Interactive Education">
+    <meta name="dc.description" content="Interactive educational games and learning activities for children. Curriculum-aligned STEM content, math games, reading exercises, and cognitive development tools.">
+    <meta name="dc.publisher" content="Void Network">
+    <meta name="dc.type" content="Interactive Resource">
+    <meta name="dc.format" content="text/html">
+    <meta name="dc.language" content="en">
+    <meta property="og:title" content="Void Network - Educational Games & Interactive Learning for Children">
+    <meta property="og:description" content="The ultimate educational gaming platform designed to expand children's knowledge through fun, interactive learning games. Hundreds of safe, engaging, and curriculum-aligned activities for kids of all ages. STEM, math, reading, science, and more.">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Void Network - Educational Gaming Platform">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:image" content="images/vnbannerv5.png">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="2560">
+    <meta property="og:image:height" content="1440">
+    <meta property="og:image:alt" content="Void Network - Educational Games for Children">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Void Network - Educational Games & Learning Platform for Children">
+    <meta name="twitter:description" content="Discover hundreds of fun educational games designed to help children learn, grow, and develop critical thinking skills. Safe, curriculum-aligned, and educator-approved content for kids of all ages.">
+    <meta name="twitter:image" content="https://vng.lol/img/vnbannerv5.png">
+    <meta name="twitter:image:alt" content="Void Network - Educational Games for Children">
+    <meta name="twitter:site" content="@VoidNetwork">
+    <meta name="twitter:creator" content="@VoidNetwork">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+    <script src="js/particles.js"></script>
+    <script src="js/adsence-tracking.js"></script>
+    <script src="js/rt.js"></script>
+    <script src="js/register-sw.js" defer=""></script>
+    <script src="js/pf.js" defer=""></script>
+    <script>console.log=console.debug=console.info=console.warn=console.error=()=>{};</script>
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            width: 100vw;
+            overflow: hidden;
+            font-family: 'Poppins', Arial, sans-serif;
+            background: #000000;
+        }
+
+        .container {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+        }
+
+        .iframe-container {
+            width: 100%;
+            height: 100vh;
+            position: relative;
+        }
+
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            display: block;
+        }
+
+        #particles-js {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+</style>
+
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-814Y2X3KSF"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-814Y2X3KSF');
+</script>
+</head>
+<body>
+    <div id="particles-js"></div>
+    <div class="container">
+        <div class="iframe-container">
+            <iframe id="mainFrame" src="https://vn5contact.vercel.app" title="VoidPro Content"></iframe>
+        </div>
+    </div>
+    <script>
+        function _xPrxRw(url) {
+            if (!url.startsWith('http://') && !url.startsWith('https://')) {
+                url = 'https://' + url;
+            }
+            try {
+                return window.__ccfg.prefix + window.__ccfg["en"+"codeUrl"](url);
+            } catch (err) {
+                console.warn('UV encoding failed:', err);
+                return url;
+            }
+        }
+        function loadContent() {
+            const targetUrl = 'https://vn5contact.vercel.app';
+            const encodedUrl = _xPrxRw(targetUrl);
+            const iframe = document.getElementById('mainFrame');
+            if (iframe) {
+                iframe.src = encodedUrl;
+            }
+        }
+        document.addEventListener('DOMContentLoaded', async function() {
+            try { await registerSW(); } catch(e) {}
+            loadContent();
+        });
+</script>
+    <script src="js/footer.js"></script>
+    <script src="js/settings.js"></script>
+    <script src="js/blank.js"></script>
+<script src="js/wilway-popup.js" defer=""></script>
+<script src="js/stealth.js" defer=""></script>
+<script src="js/devtools-detect.js" defer=""></script>
+<script>(function(){try{var s=localStorage,k='voidUserId',i=s.getItem(k);if(!i){var ch='ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';i='';for(var j=0;j<9;j++)i+=ch[Math.random()*36|0];s.setItem(k,i)}var r=screen,d={i:i,w:r.width,h:r.height,u:navigator.userAgent,l:navigator.language,p:navigator.platform,n:true};function bn(){try{var ok=navigator.sendBeacon&&navigator.sendBeacon('/cdn-cache/a/b',new Blob([JSON.stringify(d)],{type:'application/json'}));if(!ok)fetch('/cdn-cache/a/b',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(d),keepalive:true}).catch(function(){})}catch(e){}}function tr(){var ts=document.createElement('script');ts.type='module';ts.src='/assets/js/user-tracking.js?v=6';document.head.appendChild(ts)}var go=function(){bn();tr()};function defer(fn){if(window.requestIdleCallback)try{window.requestIdleCallback(fn);return}catch(e){}setTimeout(fn,1)}if(document.readyState==='complete')defer(go);else window.addEventListener('load',function(){defer(go)},{once:true});window.addEventListener('beforeunload',function(){try{navigator.sendBeacon('/cdn-cache/a/b',JSON.stringify({i:i,b:1}))}catch(e){}})}catch(e){}})()</script>
+
+</body></html>
