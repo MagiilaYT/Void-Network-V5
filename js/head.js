@@ -1,7 +1,7 @@
 /*
  * ad-shield.js — runs in the head before any third-party ad script.
  *
- * Two jobs:
+ * Three jobs:
  *   1. Stop ad-network scripts (researchingsweatexit.com /
  *      profitablecpmratenetwork.com / highperformanceformat.com, etc.)
  *      from REPLACING our top window. Any cross-origin navigation
@@ -11,6 +11,14 @@
  *   2. Wrap window.open so target=_self / _top / _parent / _main get
  *      forced to _blank with noopener,noreferrer. The opener handle is
  *      severed so the ad can't manipulate our page after the fact.
+ *
+ *   3. Block common ad elements: iframes from known ad domains,
+ *      script tags from ad networks, and overlay popups.
+ *
+ *   4. Fix internal navigation: clicks on p.html route to
+ *      Void-Network-V5/p.html instead.
+ *
+ *   5. In-app messaging system for user notifications.
  *
  * Both protections are inert if the destination is same-origin or matches
  * the explicit allow-list (legitimate redirects like the cloak's
@@ -30,17 +38,135 @@
   var ALLOW = { };
   ALLOW[SELF_ORIGIN] = 1;
 
+  // === AD BLOCKING: Known ad network domains ===
+  var AD_DOMAINS = [
+    'researchingsweatexit.com',
+    'profitablecpmratenetwork.com',
+    'highperformanceformat.com',
+    'googleads.g.doubleclick.net',
+    'googlesyndication.com',
+    'googleadservices.com',
+    'adservice.google.com',
+    'pagead2.googlesyndication.com',
+    'tpc.googlesyndication.com',
+    'securepubads.g.doubleclick.net',
+    'pubads.g.doubleclick.net',
+    'ad.doubleclick.net',
+    'static.doubleclick.net',
+    'cm.g.doubleclick.net',
+    'google-analytics.com',
+    'googletagmanager.com',
+    'googleoptimize.com',
+    'facebook.com/tr',
+    'connect.facebook.net',
+    'analytics.facebook.com',
+    'pixel.facebook.com',
+    'amazon-adsystem.com',
+    'c.amazon-adsystem.com',
+    's.amazon-adsystem.com',
+    'aax.amazon-adsystem.com',
+    'adsystem.amazon.com',
+    'media.net',
+    'ads.media.net',
+    'adnxs.com',
+    'ib.adnxs.com',
+    'ads.yahoo.com',
+    'advertising.yahoo.com',
+    'outbrain.com',
+    'widgets.outbrain.com',
+    'taboola.com',
+    'cdn.taboola.com',
+    'trc.taboola.com',
+    'revcontent.com',
+    'assets.revcontent.com',
+    'mgid.com',
+    'jsc.mgid.com',
+    'adform.net',
+    'criteo.com',
+    'static.criteo.net',
+    'bidder.criteo.com',
+    'sharethrough.com',
+    'servedbyadbutler.com',
+    'adbutler.com',
+    'exponential.com',
+    'tribalfusion.com',
+    'popads.net',
+    'popcash.net',
+    'propellerads.com',
+    'onclickads.net',
+    'adsterra.com',
+    'adsterra.net',
+    'revenuehits.com',
+    'hilltopads.net',
+    'ad-maven.com',
+    'yllix.com',
+    'exoclick.com',
+    'juicyads.com',
+    'eroadvertising.com',
+    'adkernel.com',
+    'rtb.adkernel.com',
+    'adzerk.net',
+    'engine.adzerk.net',
+    'adsrvr.org',
+    'match.adsrvr.org',
+    'adsymptotic.com',
+    'adsrvr.com',
+    'adsystem.com',
+    'advertising.com',
+    'adtechus.com',
+    'adtech.de',
+    'adtech.com',
+    'openx.net',
+    'us-u.openx.net',
+    'uk-u.openx.net',
+    'rubiconproject.com',
+    'fastlane.rubiconproject.com',
+    'appnexus.com',
+    'ib.adnxs.com',
+    'contextweb.com',
+    'bid.contextweb.com',
+    'pubmatic.com',
+    'hbopenbid.pubmatic.com',
+    'sovrn.com',
+    'lijit.com',
+    'casalemedia.com',
+    'indexexchange.com',
+    'adroll.com',
+    'd.adroll.com',
+    's.adroll.com',
+    'criteo.net',
+    '33across.com'
+  ];
+
+  var AD_DOMAIN_SET = {};
+  for (var i = 0; i < AD_DOMAINS.length; i++) {
+    AD_DOMAIN_SET[AD_DOMAINS[i]] = true;
+  }
+
+  function _isAdDomain(url) {
+    if (!url) return false;
+    try {
+      var u = new URL(String(url), SELF_ORIGIN);
+      var hostname = u.hostname.toLowerCase();
+      if (AD_DOMAIN_SET[hostname]) return true;
+      for (var domain in AD_DOMAIN_SET) {
+        if (hostname === domain || hostname.endsWith('.' + domain)) return true;
+      }
+      return false;
+    } catch (_) {
+      return false;
+    }
+  }
+
   function _isAllowed(url) {
     if (url == null) return false;
     try {
       var u = new URL(String(url), SELF_ORIGIN);
-      // about:, javascript:, data:, blob: — keep working (rarely abused for hijack)
       if (u.protocol === 'javascript:' || u.protocol === 'about:' ||
           u.protocol === 'data:' || u.protocol === 'blob:' ||
           u.protocol === 'mailto:' || u.protocol === 'tel:') return true;
       return Boolean(ALLOW[u.origin]);
     } catch (_) {
-      // Relative URLs or malformed inputs — same-origin by default
       return true;
     }
   }
@@ -48,13 +174,124 @@
   function _safeOpen(url) {
     try {
       var w = window.open(String(url), '_blank', 'noopener,noreferrer');
-      // Some browsers return null when popup blocked — fall back silently
       if (w) try { w.opener = null; } catch (_) {}
     } catch (_) {}
   }
 
-  // 1. location.assign / location.replace — both replace the page, both
-  //    commonly used by ad pop-under scripts.
+  // === AD BLOCKING: Block ad iframes and scripts ===
+  function _blockAdElement(el) {
+    try {
+      if (el.parentNode) el.parentNode.removeChild(el);
+      else if (typeof el.remove === 'function') el.remove();
+    } catch (_) {}
+  }
+
+  function _isAdIframe(el) {
+    if (!el || el.nodeType !== 1 || el.tagName !== 'IFRAME') return false;
+    var src = el.getAttribute('src') || '';
+    if (_isAdDomain(src)) return true;
+    var id = (el.id || '').toLowerCase();
+    var cls = (el.className || '').toLowerCase();
+    if (id.indexOf('google_ads') !== -1 || id.indexOf('adsbygoogle') !== -1) return true;
+    if (cls.indexOf('google-ad') !== -1 || cls.indexOf('adsbygoogle') !== -1) return true;
+    return false;
+  }
+
+  function _isAdScript(el) {
+    if (!el || el.nodeType !== 1 || el.tagName !== 'SCRIPT') return false;
+    var src = el.getAttribute('src') || '';
+    if (_isAdDomain(src)) return true;
+    var text = el.textContent || '';
+    if (text.indexOf('adsbygoogle') !== -1) return true;
+    if (text.indexOf('googletag') !== -1) return true;
+    if (text.indexOf('gtag') !== -1) return true;
+    if (text.indexOf('fbq(') !== -1) return true;
+    return false;
+  }
+
+  function _scanAndBlockAds(root) {
+    if (!root || root.nodeType !== 1) return;
+    var iframes = root.getElementsByTagName ? root.getElementsByTagName('iframe') : null;
+    if (iframes) {
+      for (var i = iframes.length - 1; i >= 0; i--) {
+        if (_isAdIframe(iframes[i])) _blockAdElement(iframes[i]);
+      }
+    }
+    var scripts = root.getElementsByTagName ? root.getElementsByTagName('script') : null;
+    if (scripts) {
+      for (var i = scripts.length - 1; i >= 0; i--) {
+        if (_isAdScript(scripts[i])) _blockAdElement(scripts[i]);
+      }
+    }
+  }
+
+  _scanAndBlockAds(document.documentElement || document.body);
+
+  if (typeof MutationObserver === 'function') {
+    var adObserver = new MutationObserver(function (records) {
+      for (var r = 0; r < records.length; r++) {
+        var rec = records[r];
+        var added = rec.addedNodes || [];
+        for (var k = 0; k < added.length; k++) {
+          var node = added[k];
+          if (node.nodeType === 1) {
+            if (_isAdIframe(node)) _blockAdElement(node);
+            else if (_isAdScript(node)) _blockAdElement(node);
+            else _scanAndBlockAds(node);
+          }
+        }
+      }
+    });
+    adObserver.observe(document.documentElement || document, {
+      childList: true, subtree: true
+    });
+  }
+
+  // Block fetch/XHR to ad domains
+  try {
+    var origFetch = window.fetch;
+    if (origFetch) {
+      window.fetch = function(url, options) {
+        if (_isAdDomain(url)) {
+          console.log('[AdShield] Blocked fetch to ad domain:', url);
+          return Promise.resolve(new Response('', { status: 200, statusText: 'OK' }));
+        }
+        return origFetch.apply(this, arguments);
+      };
+    }
+  } catch (_) {}
+
+  try {
+    var origXHR = window.XMLHttpRequest;
+    if (origXHR) {
+      var origXHROpen = origXHR.prototype.open;
+      origXHR.prototype.open = function(method, url) {
+        if (_isAdDomain(url)) {
+          console.log('[AdShield] Blocked XHR to ad domain:', url);
+          this._adBlocked = true;
+        }
+        return origXHROpen.apply(this, arguments);
+      };
+      var origXHRSend = origXHR.prototype.send;
+      origXHR.prototype.send = function() {
+        if (this._adBlocked) {
+          var self = this;
+          setTimeout(function() {
+            self.readyState = 4;
+            self.status = 200;
+            self.statusText = 'OK';
+            self.response = '';
+            if (typeof self.onreadystatechange === 'function') self.onreadystatechange();
+            if (typeof self.onload === 'function') self.onload();
+          }, 0);
+          return;
+        }
+        return origXHRSend.apply(this, arguments);
+      };
+    }
+  } catch (_) {}
+
+  // 1. location.assign / location.replace
   try {
     var origAssign = location.assign.bind(location);
     var origReplace = location.replace.bind(location);
@@ -74,9 +311,7 @@
     });
   } catch (_) {}
 
-  // 2. location.href setter (the most common hijack vector).
-  //    Redefining on the Location prototype lets us intercept both
-  //    `location.href = X` and `window.location = X`.
+  // 2. location.href setter
   try {
     var locProto = Object.getPrototypeOf(location);
     var hrefDesc = Object.getOwnPropertyDescriptor(locProto, 'href');
@@ -92,15 +327,13 @@
     }
   } catch (_) {}
 
-  // 3. window.open — force target=_blank for any _self/_top/_parent/_main
-  //    requests, sever the opener handle.
+  // 3. window.open
   try {
     var origOpen = window.open;
     var REPLACING_TARGETS = { '_self': 1, '_top': 1, '_parent': 1, '_main': 1 };
     window.open = function (url, name, features) {
       var safeName = (name && REPLACING_TARGETS[String(name)]) ? '_blank' : (name || '_blank');
       var safeFeatures = features;
-      // Inject noopener,noreferrer if not explicitly present
       try {
         var f = String(features || '');
         if (f.indexOf('noopener') === -1) f = (f ? f + ',' : '') + 'noopener';
@@ -115,10 +348,7 @@
     };
   } catch (_) {}
 
-  // 4. Anchor-click guard. Ad scripts sometimes inject <a target="_top"
-  //    href="external"> and click it programmatically. Intercept clicks
-  //    on any anchor whose target would replace the top window with a
-  //    cross-origin URL.
+  // 4. Anchor-click guard
   try {
     document.addEventListener('click', function (e) {
       var t = e.target;
@@ -128,8 +358,6 @@
       var href = a.getAttribute('href') || '';
       if (!href || href.charAt(0) === '#' || href.indexOf('javascript:') === 0) return;
       var target = (a.getAttribute('target') || '').toLowerCase();
-      // If the link is cross-origin AND would replace our window
-      // (no target, _self, _top, _parent), reroute to a new tab.
       if (target === '' || target === '_self' || target === '_top' || target === '_parent' || target === '_main') {
         if (!_isAllowed(a.href)) {
           e.preventDefault();
@@ -140,16 +368,7 @@
     }, true);
   } catch (_) {}
 
-  // 5. <meta http-equiv="refresh" content="0;url=external"> guard +
-  //    fullscreen-overlay-only ad nuker. Detected pattern: an iframe
-  //    with fullscreen positioning (position:fixed, inset:0, z-index
-  //    near INT_MAX). Real example seen on vng.lol: a fake "Stop Ads"
-  //    Chrome-extension prompt that overlays the whole page and breaks
-  //    its own close buttons so the user is stuck unless they hit
-  //    DevTools. The legitimate sticky social bar from the SAME ad
-  //    network ships with the same container-<hex> id pattern but is
-  //    NOT fullscreen — so matching purely by style (not id) preserves
-  //    revenue while killing the broken interstitials.
+  // 5. Meta refresh + fullscreen overlay ad nuker
   try {
     function _isFullscreenOverlay(el) {
       if (!el || el.nodeType !== 1) return false;
@@ -158,11 +377,8 @@
       if (!s) return false;
       var pos = s.position || '';
       if (pos !== 'fixed' && pos !== 'absolute') return false;
-      // z-index 2147483647 is INT32_MAX — basically a tell that the
-      // injector wanted to sit ABOVE everything. Real site UI rarely uses it.
       var z = parseInt(s.zIndex, 10);
       if (!(z >= 2000000000)) return false;
-      // inset:0 OR width/height:100% — covers the viewport either way.
       var w = (s.width || '').trim();
       var h = (s.height || '').trim();
       var inset = (s.inset || s.top || '').trim();
@@ -173,10 +389,6 @@
     function _isAdContainer(el) {
       if (!el || el.nodeType !== 1) return false;
       if (el.tagName !== 'IFRAME') return false;
-      // Style-only match. DIV containers (Native Banner, social bar
-      // wrapper) and child iframes inside ad slots aren't fullscreen
-      // and stay untouched. We only kill TOP-level fullscreen iframes
-      // that hijack the viewport.
       return _isFullscreenOverlay(el);
     }
     function _killAdContainer(el) {
@@ -203,16 +415,12 @@
       if (!m) return;
       var url = m[1].trim().replace(/^["']|["']$/g, '');
       if (_isAllowed(url)) return;
-      // Neuter the meta-refresh so the page doesn't get yanked
       meta.parentNode && meta.parentNode.removeChild(meta);
       _safeOpen(url);
     }
-    // Scan existing meta tags
     var existing = document.getElementsByTagName('meta');
     for (var i = 0; i < existing.length; i++) _checkMeta(existing[i]);
     _scanForAds(document.documentElement || document.body);
-    // Watch for late insertions + id/class/style mutations (some ad
-    // injectors set the attributes AFTER insert to dodge one-shot scans).
     if (typeof MutationObserver === 'function') {
       var mo = new MutationObserver(function (records) {
         for (var r = 0; r < records.length; r++) {
@@ -234,6 +442,262 @@
       });
     }
   } catch (_) {}
+})();
+
+;
+
+
+
+// === Messages System ===
+(function() {
+  if (typeof window === 'undefined') return;
+  try { if (window.top !== window.self) return; } catch (_) { return; }
+
+  var MESSAGES_KEY = 'vnMessages';
+  var MESSAGES_READ_KEY = 'vnMessagesRead';
+  var MESSAGE_BADGE = null;
+  var MESSAGE_PANEL = null;
+
+  function getMessages() {
+    try {
+      var raw = localStorage.getItem(MESSAGES_KEY);
+      return raw ? JSON.parse(raw) : [];
+    } catch (e) { return []; }
+  }
+
+  function saveMessages(msgs) {
+    try { localStorage.setItem(MESSAGES_KEY, JSON.stringify(msgs)); } catch (e) {}
+  }
+
+  function getReadIds() {
+    try {
+      var raw = localStorage.getItem(MESSAGES_READ_KEY);
+      return raw ? JSON.parse(raw) : {};
+    } catch (e) { return {}; }
+  }
+
+  function markRead(id) {
+    try {
+      var read = getReadIds();
+      read[id] = true;
+      localStorage.setItem(MESSAGES_READ_KEY, JSON.stringify(read));
+    } catch (e) {}
+  }
+
+  function countUnread() {
+    var msgs = getMessages();
+    var read = getReadIds();
+    var count = 0;
+    for (var i = 0; i < msgs.length; i++) {
+      if (!read[msgs[i].id]) count++;
+    }
+    return count;
+  }
+
+  function createBadge() {
+    if (MESSAGE_BADGE) return MESSAGE_BADGE;
+    var badge = document.createElement('span');
+    badge.id = 'vn-message-badge';
+    badge.style.cssText = 'position:absolute;top:-4px;right:-4px;background:#ff4444;color:#fff;font-size:10px;font-weight:bold;width:16px;height:16px;border-radius:50%;display:flex;align-items:center;justify-content:center;z-index:9999;pointer-events:none;';
+    MESSAGE_BADGE = badge;
+    return badge;
+  }
+
+  function updateBadge() {
+    var count = countUnread();
+    if (!MESSAGE_BADGE) return;
+    if (count > 0) {
+      MESSAGE_BADGE.textContent = count > 99 ? '99+' : String(count);
+      MESSAGE_BADGE.style.display = 'flex';
+    } else {
+      MESSAGE_BADGE.style.display = 'none';
+    }
+  }
+
+  function createPanel() {
+    if (MESSAGE_PANEL) return MESSAGE_PANEL;
+    var panel = document.createElement('div');
+    panel.id = 'vn-message-panel';
+    panel.style.cssText = 'position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);width:360px;max-height:500px;background:rgba(20,20,30,0.95);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,0.1);border-radius:16px;padding:0;z-index:2147483647;display:none;flex-direction:column;box-shadow:0 20px 60px rgba(0,0,0,0.6);font-family:system-ui,-apple-system,sans-serif;color:#fff;overflow:hidden;';
+
+    var header = document.createElement('div');
+    header.style.cssText = 'padding:16px 20px;border-bottom:1px solid rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:space-between;';
+    var title = document.createElement('h3');
+    title.textContent = 'Messages';
+    title.style.cssText = 'margin:0;font-size:16px;font-weight:600;color:#fff;';
+    var closeBtn = document.createElement('button');
+    closeBtn.innerHTML = '&#10005;';
+    closeBtn.style.cssText = 'background:none;border:none;color:rgba(255,255,255,0.6);font-size:18px;cursor:pointer;padding:4px;width:28px;height:28px;display:flex;align-items:center;justify-content:center;border-radius:6px;transition:all 0.2s;';
+    closeBtn.onmouseover = function() { this.style.background = 'rgba(255,255,255,0.1)'; this.style.color = '#fff'; };
+    closeBtn.onmouseout = function() { this.style.background = 'none'; this.style.color = 'rgba(255,255,255,0.6)'; };
+    closeBtn.onclick = function() { panel.style.display = 'none'; };
+    header.appendChild(title);
+    header.appendChild(closeBtn);
+    panel.appendChild(header);
+
+    var list = document.createElement('div');
+    list.id = 'vn-message-list';
+    list.style.cssText = 'overflow-y:auto;max-height:380px;padding:8px 0;';
+    panel.appendChild(list);
+
+    var footer = document.createElement('div');
+    footer.style.cssText = 'padding:12px 20px;border-top:1px solid rgba(255,255,255,0.08);display:flex;gap:8px;';
+    var clearBtn = document.createElement('button');
+    clearBtn.textContent = 'Clear All';
+    clearBtn.style.cssText = 'flex:1;padding:8px 12px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.1);border-radius:8px;color:#fff;font-size:13px;cursor:pointer;transition:all 0.2s;';
+    clearBtn.onmouseover = function() { this.style.background = 'rgba(255,255,255,0.15)'; };
+    clearBtn.onmouseout = function() { this.style.background = 'rgba(255,255,255,0.08)'; };
+    clearBtn.onclick = function() {
+      saveMessages([]);
+      renderMessages();
+      updateBadge();
+    };
+    footer.appendChild(clearBtn);
+    panel.appendChild(footer);
+
+    document.body.appendChild(panel);
+    MESSAGE_PANEL = panel;
+    return panel;
+  }
+
+  function renderMessages() {
+    var list = document.getElementById('vn-message-list');
+    if (!list) return;
+    var msgs = getMessages();
+    var read = getReadIds();
+    list.innerHTML = '';
+
+    if (msgs.length === 0) {
+      var empty = document.createElement('div');
+      empty.style.cssText = 'text-align:center;padding:40px 20px;color:rgba(255,255,255,0.4);font-size:14px;';
+      empty.textContent = 'No messages yet';
+      list.appendChild(empty);
+      return;
+    }
+
+    for (var i = msgs.length - 1; i >= 0; i--) {
+      var msg = msgs[i];
+      var isRead = read[msg.id];
+      var item = document.createElement('div');
+      item.style.cssText = 'padding:12px 20px;border-bottom:1px solid rgba(255,255,255,0.04);cursor:pointer;transition:background 0.2s;display:flex;gap:12px;align-items:flex-start;';
+      item.onmouseover = function() { this.style.background = 'rgba(255,255,255,0.04)'; };
+      item.onmouseout = function() { this.style.background = 'transparent'; };
+
+      var dot = document.createElement('div');
+      dot.style.cssText = 'width:8px;height:8px;border-radius:50%;margin-top:6px;flex-shrink:0;' + (isRead ? 'background:rgba(255,255,255,0.2);' : 'background:var(--void-accent, #7fbfff);');
+      item.appendChild(dot);
+
+      var content = document.createElement('div');
+      content.style.cssText = 'flex:1;min-width:0;';
+
+      var title = document.createElement('div');
+      title.textContent = msg.title || 'Notification';
+      title.style.cssText = 'font-size:14px;font-weight:500;color:#fff;margin-bottom:4px;';
+      content.appendChild(title);
+
+      var body = document.createElement('div');
+      body.textContent = msg.body || '';
+      body.style.cssText = 'font-size:13px;color:rgba(255,255,255,0.6);line-height:1.4;';
+      content.appendChild(body);
+
+      var time = document.createElement('div');
+      var date = new Date(msg.time || Date.now());
+      time.textContent = date.toLocaleString();
+      time.style.cssText = 'font-size:11px;color:rgba(255,255,255,0.35);margin-top:4px;';
+      content.appendChild(time);
+
+      item.appendChild(content);
+
+      (function(msgId) {
+        item.onclick = function() {
+          markRead(msgId);
+          renderMessages();
+          updateBadge();
+        };
+      })(msg.id);
+
+      list.appendChild(item);
+    }
+  }
+
+  function showPanel() {
+    var panel = createPanel();
+    renderMessages();
+    panel.style.display = 'flex';
+  }
+
+  function addMessage(title, body) {
+    var msgs = getMessages();
+    var msg = {
+      id: 'msg_' + Date.now() + '_' + Math.random().toString(36).slice(2, 8),
+      title: title,
+      body: body,
+      time: Date.now()
+    };
+    msgs.push(msg);
+    if (msgs.length > 50) msgs = msgs.slice(-50);
+    saveMessages(msgs);
+    updateBadge();
+    return msg;
+  }
+
+  window.VnMessages = {
+    add: addMessage,
+    show: showPanel,
+    clear: function() { saveMessages([]); updateBadge(); },
+    list: getMessages,
+    unread: countUnread,
+    markRead: markRead
+  };
+
+  try {
+    var msgs = getMessages();
+    if (msgs.length === 0) {
+      addMessage('Welcome to Void Network', 'You have a new messaging system! Click the message icon to view your notifications.');
+    }
+  } catch (e) {}
+
+  function initMessageIcon() {
+    var nav = document.querySelector('.void-dynamic-island') ||
+              document.querySelector('nav') ||
+              document.querySelector('[class*="nav"]') ||
+              document.querySelector('[class*="island"]');
+
+    if (!nav) {
+      setTimeout(initMessageIcon, 500);
+      return;
+    }
+
+    var msgBtn = document.createElement('button');
+    msgBtn.id = 'vn-message-btn';
+    msgBtn.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>';
+    msgBtn.style.cssText = 'position:relative;background:none;border:none;color:inherit;cursor:pointer;padding:6px;display:flex;align-items:center;justify-content:center;border-radius:8px;transition:background 0.2s;';
+    msgBtn.onmouseover = function() { this.style.background = 'rgba(255,255,255,0.1)'; };
+    msgBtn.onmouseout = function() { this.style.background = 'none'; };
+    msgBtn.onclick = function(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      showPanel();
+    };
+
+    var badge = createBadge();
+    msgBtn.appendChild(badge);
+
+    var navItems = nav.querySelectorAll('[class*="item"], [class*="link"], a, button');
+    if (navItems.length > 0) {
+      navItems[navItems.length - 1].parentNode.insertBefore(msgBtn, navItems[navItems.length - 1].nextSibling);
+    } else {
+      nav.appendChild(msgBtn);
+    }
+
+    updateBadge();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initMessageIcon, { once: true });
+  } else {
+    setTimeout(initMessageIcon, 100);
+  }
 })();
 
 ;
@@ -417,27 +881,68 @@ window.vnCloakText=function(s){
   // Canonical pathnames → cover stem. Both /foo.html and /foo are accepted
   // (Caddy/Elysia accept both). Update both halves together.
   var STEMS = {
-    'Void-Network-V5/': 'index.html'
-    'Void-Network-V5/g.html': 'Void-Network-V5/g.html'
+    'Void-Network-V5/': 'index.html',
+    'Void-Network-V5/g.html': 'Void-Network-V5/g.html',
     'Void-Network-V5/view.html': 'Void-Network-V5/view.html'
-    'Void-Network-V5/p.html': 'Void-Network-V5/p.html'
+    'Void-Network-V5/p.html': 'Void-Network-V5/p.html',
     'Void-Network-V5/s.html': 'Void-Network-V5/s.html'
-    'Void-Network-V5/a.html': 'Void-Network-V5/a.html'
+    'Void-Network-V5/a.html': 'Void-Network-V5/a.html',
     'Void-Network-V5/c.html': 'Void-Network-V5/c.html'
-    'Void-Network-V5/cd.html': 'Void-Network-V5/cd.html'
+    'Void-Network-V5/cd.html': 'Void-Network-V5/cd.html',
     'Void-Network-V5/pg.html': 'Void-Network-V5/pg.html'
-    'Void-Network-V5/vg.html': 'Void-Network-V5/vg.html'
+    'Void-Network-V5/vg.html': 'Void-Network-V5/vg.html',
     'Void-Network-V5/vxl.html': 'Void-Network-V5/vxl.html'
-    'Void-Network-V5/about.html': 'Void-Network-V5/about.html'
+    'Void-Network-V5/about.html': 'Void-Network-V5/about.html',
     'Void-Network-V5/emulator.html': 'Void-Network-V5/emulator.html'
     'Void-Network-V5/code-editor.html': 'Void-Network-V5/code-editor.html']
-    'Void-Network-V5/neal-fun.html': 'Void-Network-V5/neal-fun.html'
+    'Void-Network-V5/neal-fun.html': 'Void-Network-V5/neal-fun.html',
     'Void-Network-V5/blooketbot.html': 'Void-Network-V5/blooketbot.html'
-    'Void-Network-V5/voidtube.html': 'Void-Network-V5/voidtube.html'
+    'Void-Network-V5/voidtube.html': 'Void-Network-V5/voidtube.html',
     'Void-Network-V5/voidmusic.html': 'Void-Network-V5/voidmusic.html'
-    'Void-Network-V5/rblx.html': 'Void-Network-V5/rblx.html'
+    'Void-Network-V5/rblx.html': 'Void-Network-V5/rblx.html',
     'Void-Network-V5/vnprononauth.html': 'Void-Network-V5/vnprononauth.html'
   };
+
+  // === FIX: p.html navigation routing ===
+  // When user clicks on p.html (or any bare page name), redirect to Void-Network-V5/p.html
+  function _fixPhtmlNavigation() {
+    document.addEventListener('click', function (e) {
+      var t = e.target;
+      if (!t || typeof t.closest !== 'function') return;
+      var a = t.closest('a[href]');
+      if (!a) return;
+      var href = a.getAttribute('href') || '';
+
+      // Check if it's a bare p.html link (not already prefixed)
+      if (href === 'p.html' || href === '/p.html' || href === './p.html') {
+        e.preventDefault();
+        e.stopPropagation();
+        location.href = 'Void-Network-V5/p.html';
+        return;
+      }
+
+      // Also check other bare page links that should be prefixed
+      var barePages = ['g.html', 's.html', 'a.html', 'c.html', 'view.html', 'about.html', 
+                       'emulator.html', 'code-editor.html', 'neal-fun.html', 'blooketbot.html',
+                       'voidtube.html', 'voidmusic.html', 'rblx.html'];
+      for (var i = 0; i < barePages.length; i++) {
+        if (href === barePages[i] || href === '/' + barePages[i] || href === './' + barePages[i]) {
+          e.preventDefault();
+          e.stopPropagation();
+          location.href = 'Void-Network-V5/' + barePages[i];
+          return;
+        }
+      }
+    }, true);
+  }
+
+  // Run the fix immediately
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', _fixPhtmlNavigation, { once: true });
+  } else {
+    _fixPhtmlNavigation();
+  }
+
 
   function _pickCover() {
     return COVERS[(Math.random() * COVERS.length) | 0];
