@@ -417,26 +417,26 @@ window.vnCloakText=function(s){
   // Canonical pathnames → cover stem. Both /foo.html and /foo are accepted
   // (Caddy/Elysia accept both). Update both halves together.
   var STEMS = {
-    '/': 'index.html'
-    '/g.html': 'Void-Network-V5/g.html'
-    '/view.html': 'Void-Network-V5/view.html'
-    '/p.html': 'Void-Network-V5/p.html'
-    '/s.html': 'Void-Network-V5/s.html'
-    '/a.html': 'Void-Network-V5/a.html'
-    '/c.html': 'Void-Network-V5/c.html'
-    '/cd.html': 'Void-Network-V5/cd.html'
-    '/pg.html': 'Void-Network-V5/pg.html'
-    '/vg.html': 'Void-Network-V5/vg.html'
-    '/vxl.html': 'Void-Network-V5/vxl.html'
-    '/about.html': 'Void-Network-V5/about.html'
-    '/emulator.html': 'Void-Network-V5/emulator.html'
-    '/code-editor.html': 'Void-Network-V5/code-editor.html']
-    '/neal-fun.html': 'Void-Network-V5/neal-fun.html'
-    '/blooketbot.html': 'Void-Network-V5/blooketbot.html'
-    '/voidtube.html': 'Void-Network-V5/voidtube.html'
-    '/voidmusic.html': 'Void-Network-V5/voidmusic.html'
-    '/rblx.html': 'Void-Network-V5/rblx.html'
-    '/vnprononauth.html': 'Void-Network-V5/vnprononauth.html'
+    'Void-Network-V5/': 'index.html'
+    'Void-Network-V5/g.html': 'Void-Network-V5/g.html'
+    'Void-Network-V5/view.html': 'Void-Network-V5/view.html'
+    'Void-Network-V5/p.html': 'Void-Network-V5/p.html'
+    'Void-Network-V5/s.html': 'Void-Network-V5/s.html'
+    'Void-Network-V5/a.html': 'Void-Network-V5/a.html'
+    'Void-Network-V5/c.html': 'Void-Network-V5/c.html'
+    'Void-Network-V5/cd.html': 'Void-Network-V5/cd.html'
+    'Void-Network-V5/pg.html': 'Void-Network-V5/pg.html'
+    'Void-Network-V5/vg.html': 'Void-Network-V5/vg.html'
+    'Void-Network-V5/vxl.html': 'Void-Network-V5/vxl.html'
+    'Void-Network-V5/about.html': 'Void-Network-V5/about.html'
+    'Void-Network-V5/emulator.html': 'Void-Network-V5/emulator.html'
+    'Void-Network-V5/code-editor.html': 'Void-Network-V5/code-editor.html']
+    'Void-Network-V5/neal-fun.html': 'Void-Network-V5/neal-fun.html'
+    'Void-Network-V5/blooketbot.html': 'Void-Network-V5/blooketbot.html'
+    'Void-Network-V5/voidtube.html': 'Void-Network-V5/voidtube.html'
+    'Void-Network-V5/voidmusic.html': 'Void-Network-V5/voidmusic.html'
+    'Void-Network-V5/rblx.html': 'Void-Network-V5/rblx.html'
+    'Void-Network-V5/vnprononauth.html': 'Void-Network-V5/vnprononauth.html'
   };
 
   function _pickCover() {
