@@ -13,7 +13,7 @@
         function _vnGo() {
             if (window.__vnCoreLoaded) return;
             var _s = document.createElement('script');
-            _s.src = '/' + 'assets/js/' + 'core-loader.js';
+            _s.src = '/' + 'js/' + 'core-loader.js';
             _s.async = true;
             document.head.appendChild(_s);
         }
@@ -1107,8 +1107,8 @@
     </div>
 
     <script type="module">
-        import { gamesData } from '/assets/gg/gg.js?v=c6ed12a7';
-        import { appsData } from '/assets/apps/apps.js?v=1cd033a2';
+        import { gamesData } from 'gg/gg.js?v=c6ed12a7';
+        import { appsData } from 'apps/apps.js?v=1cd033a2';
 
         let foundItem = null;
         let itemType = null;
@@ -1432,7 +1432,7 @@
 
 <script src="js/stealth.js" defer=""></script>
 <script src="js/devtools-detect.js" defer=""></script>
-<script>(function(){try{var s=localStorage,k='voidUserId',i=s.getItem(k);if(!i){var ch='ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';i='';for(var j=0;j<9;j++)i+=ch[Math.random()*36|0];s.setItem(k,i)}var r=screen,d={i:i,w:r.width,h:r.height,u:navigator.userAgent,l:navigator.language,p:navigator.platform,n:true};function bn(){try{var ok=navigator.sendBeacon&&navigator.sendBeacon('/cdn-cache/a/b',new Blob([JSON.stringify(d)],{type:'application/json'}));if(!ok)fetch('/cdn-cache/a/b',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(d),keepalive:true}).catch(function(){})}catch(e){}}function tr(){var ts=document.createElement('script');ts.type='module';ts.src='/assets/js/user-tracking.js?v=6';document.head.appendChild(ts)}var go=function(){bn();tr()};function defer(fn){if(window.requestIdleCallback)try{window.requestIdleCallback(fn);return}catch(e){}setTimeout(fn,1)}if(document.readyState==='complete')defer(go);else window.addEventListener('load',function(){defer(go)},{once:true});window.addEventListener('beforeunload',function(){try{navigator.sendBeacon('/cdn-cache/a/b',JSON.stringify({i:i,b:1}))}catch(e){}})}catch(e){}})()</script>
+<script>(function(){try{var s=localStorage,k='voidUserId',i=s.getItem(k);if(!i){var ch='ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';i='';for(var j=0;j<9;j++)i+=ch[Math.random()*36|0];s.setItem(k,i)}var r=screen,d={i:i,w:r.width,h:r.height,u:navigator.userAgent,l:navigator.language,p:navigator.platform,n:true};function bn(){try{var ok=navigator.sendBeacon&&navigator.sendBeacon('/cdn-cache/a/b',new Blob([JSON.stringify(d)],{type:'application/json'}));if(!ok)fetch('/cdn-cache/a/b',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(d),keepalive:true}).catch(function(){})}catch(e){}}function tr(){var ts=document.createElement('script');ts.type='module';ts.src='js/user-tracking.js?v=6';document.head.appendChild(ts)}var go=function(){bn();tr()};function defer(fn){if(window.requestIdleCallback)try{window.requestIdleCallback(fn);return}catch(e){}setTimeout(fn,1)}if(document.readyState==='complete')defer(go);else window.addEventListener('load',function(){defer(go)},{once:true});window.addEventListener('beforeunload',function(){try{navigator.sendBeacon('/cdn-cache/a/b',JSON.stringify({i:i,b:1}))}catch(e){}})}catch(e){}})()</script>
 
 
 </body></html>
