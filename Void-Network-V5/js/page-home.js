@@ -502,9 +502,9 @@ fetch('https://script.google.com/macros/s/AKfycbz1w3UhB-6o6JWDcwOfo7622pfuTLeTcL
 
     const footerConfig = {
         logo: {
-            src: "/img/logo.png?v=2",
+            src: "/images/vnbannerv5.png",
             alt: "Home",
-            href: "/home.html"
+            href: "Void-Network-V5/index.html"
         },
         customButton: {
             id: "discord",
@@ -517,73 +517,73 @@ fetch('https://script.google.com/macros/s/AKfycbz1w3UhB-6o6JWDcwOfo7622pfuTLeTcL
             {
                 id: "g",
                 tooltip: "Games",
-                href: "/g.html",
+                href: "Void-Network-V5/g.html",
                 icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><line x1="6" x2="10" y1="11" y2="11"/><line x1="8" x2="8" y1="9" y2="13"/><line x1="15" x2="15.01" y1="12" y2="12"/><line x1="18" x2="18.01" y1="10" y2="10"/><path d="M17.32 5H6.68a4 4 0 0 0-3.978 3.59c-.006.052-.01.101-.017.152C2.604 9.416 2 14.456 2 16a3 3 0 0 0 3 3c1 0 1.5-.5 2-1l1.414-1.414A2 2 0 0 1 9.828 16h4.344a2 2 0 0 1 1.414.586L17 18c.5.5 1 1 2 1a3 3 0 0 0 3-3c0-1.545-.604-6.584-.685-7.258-.007-.05-.011-.1-.017-.151A4 4 0 0 0 17.32 5z"/></svg>`
             },
             {
                 id: "a",
                 tooltip: "Apps",
-                href: "/a.html",
+                href: "Void-Network-V5/a.html",
                 icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect width="7" height="7" x="3" y="3" rx="1"/><rect width="7" height="7" x="14" y="3" rx="1"/><rect width="7" height="7" x="14" y="14" rx="1"/><rect width="7" height="7" x="3" y="14" rx="1"/></svg>`
             },
             {
                 id: "p",
                 tooltip: "Browser",
-                href: "/p.html",
+                href: "Void-Network-V5/p.html",
                 icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>`
             },
             {
                 id: "c",
                 tooltip: "Contact",
-                href: "/c.html",
+                href: "Void-Network-V5/c.html",
                 icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>`
             },
             {
                 id: "s",
                 tooltip: "Settings",
-                href: "/s.html",
+                href: "Void-Network-V5/s.html",
                 icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>`
             },
             {
                 id: "vc",
                 tooltip: "Chat",
-                href: "/vc.html",
+                href: "Void-Network-V5/vc.html",
                 icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>`
             },
             {
                 id: "vg",
                 tooltip: "Void GPT",
-                href: "/vg.html",
+                href: "Void-Network-V5/vg.html",
                 icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8V4H8"/><rect width="16" height="12" x="4" y="8" rx="2"/><path d="M2 14h2"/><path d="M20 14h2"/><path d="M15 13v2"/><path d="M9 13v2"/></svg>`
             },
             {
                 id: "nvpro",
                 tooltip: "VN PRO",
-                href: "/vnprononauth.html",
+                href: "Void-Network-V5/vnprononauth.html",
                 icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h12l4 6-10 13L2 9Z"/><path d="M11 3 8 9l4 13 4-13-3-6"/><path d="M2 9h20"/></svg>`
             },
             {
                 id: "vnmusic",
                 tooltip: "Music",
-                href: "/voidmusic.html",
+                href: "Void-Network-V5/voidmusic.html",
                 icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>`
             },
             {
                 id: "vxl",
                 tooltip: "VXL",
-                href: "/vxl.html",
+                href: "Void-Network-V5/vxl.html",
                 icon: `<img src="https://lh7-rt.googleusercontent.com/formsz/AN7BsVCZS77iPCbsL6XGud7tVlxqmsZmr2MA6sBgUXcwtGvo-12kjlX9kqU2QhruZQSu9ztuThbrbdaFklDFvLCBiYgvN-XG86mhqGtVyg4dTDa_D5r_n_OYgAN0fkBEMJQ-LVwXkMJ3AaYXD0reBVTwTstoOy85V_WDWmCpuw=s64?key=fPApFUiXQxbHmau6r-uvmA" alt="VXL" width="26" height="26" loading="lazy" decoding="async">`
             },
             {
                 id: "voidgames",
                 tooltip: "Void Games",
-                href: "/sciencework/vg/",
+                href: "Void-Network-V5/sciencework/vg/",
                 icon: `<img src="/sciencework/vg/assets/voidcoin.png" alt="Void Games" width="26" height="26" loading="lazy" decoding="async">`
             },
             {
                 id: "donate",
                 tooltip: "Donate",
-                href: "/donate.html",
+                href: "Void-Network-V5/donate.html",
                 icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>`
             }
         ]
