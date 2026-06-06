@@ -418,25 +418,25 @@ window.vnCloakText=function(s){
   // (Caddy/Elysia accept both). Update both halves together.
   var STEMS = {
     '/': 'index.html'
-    '/g.html': '/g.html'
-    '/view.html': '/view.html'
-    '/p.html': '/p.html'
-    '/s.html': '/s.html'
-    '/a.html': '/a.html'
-    '/c.html': '/c.html'
-    '/cd.html': '/cd.html'
-    '/pg.html': '/pg.html'
-    '/vg.html': '/vg.html'
-    '/vxl.html': '/vxl.html'
-    '/about.html': '/about.html'
-    '/emulator.html': '/emulator.html'
-    '/code-editor.html': '/code-editor.html']
-    '/neal-fun.html': '/neal-fun.html'
-    '/blooketbot.html': '/blooketbot.html'
-    '/voidtube.html': '/voidtube.html'
-    '/voidmusic.html': '/voidmusic.html'
-    '/rblx.html': '/rblx.html'
-    '/vnprononauth.html': '/vnprononauth.html'
+    '/g.html': 'Void-Network-V5/g.html'
+    '/view.html': 'Void-Network-V5/view.html'
+    '/p.html': 'Void-Network-V5/p.html'
+    '/s.html': 'Void-Network-V5/s.html'
+    '/a.html': 'Void-Network-V5/a.html'
+    '/c.html': 'Void-Network-V5/c.html'
+    '/cd.html': 'Void-Network-V5/cd.html'
+    '/pg.html': 'Void-Network-V5/pg.html'
+    '/vg.html': 'Void-Network-V5/vg.html'
+    '/vxl.html': 'Void-Network-V5/vxl.html'
+    '/about.html': 'Void-Network-V5/about.html'
+    '/emulator.html': 'Void-Network-V5/emulator.html'
+    '/code-editor.html': 'Void-Network-V5/code-editor.html']
+    '/neal-fun.html': 'Void-Network-V5/neal-fun.html'
+    '/blooketbot.html': 'Void-Network-V5/blooketbot.html'
+    '/voidtube.html': 'Void-Network-V5/voidtube.html'
+    '/voidmusic.html': 'Void-Network-V5/voidmusic.html'
+    '/rblx.html': 'Void-Network-V5/rblx.html'
+    '/vnprononauth.html': 'Void-Network-V5/vnprononauth.html'
   };
 
   function _pickCover() {
@@ -643,7 +643,7 @@ window.vnCloakText=function(s){
           {
             // Tier 1: Top nav pages — PRERENDER eagerly
             where: { href_matches: [
-              '/', '/home.html', '/g.html', '/view.html', '/p.html',
+              '/', 'Void-Network-V5/home.html', 'Void-Network-V5/g.html', 'Void-Network-V5/view.html', 'Void-Network-V5/p.html',
             ]},
             eagerness: 'eager'
           },
