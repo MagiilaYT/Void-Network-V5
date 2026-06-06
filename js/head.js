@@ -643,7 +643,7 @@ window.vnCloakText=function(s){
           {
             // Tier 1: Top nav pages — PRERENDER eagerly
             where: { href_matches: [
-              'Void-Network-V5/', 'Void-Network-V5/home.html', 'Void-Network-V5/g.html', 'Void-Network-V5/view.html', 'Void-Network-V5/p.html',
+              'Void-Network-V5/', 'Void-Network-V5/home.html', 'Void-Network-V5/g.html', 'Void-Network-V5/view.html', 'Void-Network-V5/p.html'
             ]},
             eagerness: 'eager'
           },
