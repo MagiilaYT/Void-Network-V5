@@ -1,0 +1,585 @@
+<!DOCTYPE html><html lang="en"><head><style id="vn-critical-css">:root { --matte-bg-base: #050505; --matte-bg-elevated: #0a0a0a; --matte-bg-card: #0f0f0f; --matte-bg-hover: #141414; --matte-border-subtle: rgba(255, 255, 255, 0.04); --matte-border-default: rgba(255, 255, 255, 0.06); --matte-border-hover: rgba(255, 255, 255, 0.1); --matte-text-primary: #f0f0f0; --matte-text-secondary: rgba(255, 255, 255, 0.6); --matte-text-muted: rgba(255, 255, 255, 0.35); --matte-shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3); --matte-shadow-md: 0 4px 16px rgba(0, 0, 0, 0.4); --matte-shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.5); --matte-radius-sm: 10px; --matte-radius-md: 14px; --matte-radius-lg: 18px; --matte-radius-xl: 22px; } * { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; text-rendering: optimizeLegibility; } body { background: var(--matte-bg-base) !important; color: var(--matte-text-primary) !important; } body::before { background: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(255, 255, 255, 0.015) 0%, transparent 100%) !important; } .page-title, .title, .holographic-title, .welcome-title, h1.page-title { background: linear-gradient(180deg, #4a4a4a 0%, #ffffff 100%) !important; -webkit-background-clip: text !important; background-clip: text !important; -webkit-text-fill-color: transparent !important; text-shadow: none !important; letter-spacing: -0.02em !important; } .section-title { color: var(--matte-text-primary) !important; font-weight: 600 !important; letter-spacing: -0.01em !important; border-bottom-color: var(--matte-border-subtle) !important; } .search-bar, input[type="text"], input[type="search"], textarea, select { background: var(--matte-bg-card) !important; border: 1px solid var(--matte-border-default) !important; border-radius: var(--matte-radius-lg) !important; color: var(--matte-text-primary) !important; box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2) !important; } .search-bar:focus, input[type="text"]:focus, input[type="search"]:focus, textarea:focus, select:focus { border-color: var(--matte-border-hover) !important; background: var(--matte-bg-hover) !important; outline: none !important; } .search-bar::placeholder, input::placeholder, textarea::placeholder { color: var(--matte-text-muted) !important; } .tile-card, .app-card { background: var(--matte-bg-card) !important; border: 1px solid var(--matte-border-subtle) !important; border-radius: var(--matte-radius-lg) !important; box-shadow: var(--matte-shadow-sm) !important; overflow: hidden !important; } .tile-card:hover, .app-card:hover { border-color: var(--matte-border-hover) !important; box-shadow: var(--matte-shadow-lg) !important; background: var(--matte-bg-hover) !important; } .tile-card::before, .app-card::before { display: none !important; } .tile-image { border-radius: var(--matte-radius-lg) !important; } .tile-info { background: linear-gradient(0deg, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.4) 60%, transparent 100%) !important; padding: 1.25rem !important; } .tile-title { text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8) !important; font-weight: 600 !important; letter-spacing: -0.01em !important; } .setting-item, .contact-container { background: var(--matte-bg-card) !important; border: 1px solid var(--matte-border-subtle) !important; border-radius: var(--matte-radius-lg) !important; box-shadow: var(--matte-shadow-sm) !important; } .setting-item:hover { border-color: var(--matte-border-default) !important; background: var(--matte-bg-hover) !important; } .toggle-switch { background: rgba(255, 255, 255, 0.06) !important; border: 1px solid var(--matte-border-subtle) !important; } .toggle-switch.active { background: rgba(34, 197, 94, 0.2) !important; border-color: rgba(34, 197, 94, 0.3) !important; } .toggle-slider { background: linear-gradient(180deg, #ffffff 0%, #e0e0e0 100%) !important; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25) !important; } .browser-header, .nav-bar, header:not(.void-dynamic-island):not([data-dynamic-island]) { background: rgba(8, 8, 8, 0.95) !important; border-bottom: 1px solid var(--matte-border-subtle) !important; box-shadow: 0 4px 24px rgba(0, 0, 0, 0.5) !important; } .browser-header::before, .welcome-screen::before { display: none !important; } .welcome-screen, .popup, .modal, #voidWarningPopup, #performancePopupOverlay > div, #welcomePopupOverlay > div { background: var(--matte-bg-elevated) !important; border: 1px solid var(--matte-border-default) !important; border-radius: var(--matte-radius-xl) !important; box-shadow: 0 32px 64px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.03) !important; } .browser-iframe { border-radius: var(--matte-radius-md) !important; box-shadow: var(--matte-shadow-lg) !important; } .url-bar, .url-input { background: rgba(0, 0, 0, 0.4) !important; border: 1px solid var(--matte-border-subtle) !important; border-radius: var(--matte-radius-lg) !important; color: var(--matte-text-primary) !important; } .search-icon, .icon { color: var(--matte-text-muted) !important; } .loading, .no-results { color: var(--matte-text-secondary) !important; } .no-results h2 { color: var(--matte-text-primary) !important; } ::-webkit-scrollbar { width: 10px; height: 10px; } ::-webkit-scrollbar-track { background: var(--matte-bg-base); } ::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.1); border-radius: 5px; border: 2px solid var(--matte-bg-base); } ::-webkit-scrollbar-thumb:hover { background: rgba(255, 255, 255, 0.18); } ::selection { background: rgba(255, 255, 255, 0.15); color: #ffffff; } .quality-slider { background: rgba(255, 255, 255, 0.08) !important; } .quality-slider::-webkit-slider-thumb { background: linear-gradient(180deg, #ffffff 0%, #d0d0d0 100%) !important; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4) !important; } .quality-description { background: rgba(255, 255, 255, 0.03) !important; border-radius: var(--matte-radius-sm) !important; } .iframe-loading-overlay { background: var(--matte-bg-base) !important; } .iframe-loading-spinner { border-color: var(--matte-border-default) !important; border-top-color: var(--matte-text-secondary) !important; } .tile-grid { gap: 1.5rem !important; } .user-id-display { background: rgba(0, 0, 0, 0.3) !important; border: 1px solid var(--matte-border-subtle) !important; border-radius: var(--matte-radius-md) !important; } .user-id-text { color: rgba(100, 220, 100, 0.8) !important; } #debugInfo { color: var(--matte-text-muted) !important; } @media (max-width: 768px) { .tile-grid { gap: 1rem !important; } } @supports (-webkit-touch-callout: none) { body { min-height: -webkit-fill-available; } nav.void-dynamic-island { bottom: calc(20px + env(safe-area-inset-bottom, 0px)) !important; } } @media (max-width: 768px) { input, textarea, select, .search-bar { font-size: 16px !important; } iframe { -webkit-overflow-scrolling: touch; } }@view-transition{navigation:auto}::view-transition-old(root),::view-transition-new(root){animation-duration:.18s;animation-timing-function:cubic-bezier(.2,0,0,1)}</style>
+
+    
+    <script src="js/head.js"></script>
+    <meta name="referrer" content="no-referrer-when-downgrade">
+
+<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Void Network V5</title>
+<meta name="description" content="Void Network - The premier educational gaming platform for children. Explore hundreds of interactive learning games, STEM challenges, curriculum-aligned activities, and safe educational experiences designed to develop critical thinking, problem-solving, and creativity in kids of all ages.">
+    <meta name="keywords" content="educational games, learning games for kids, children education, STEM games, interactive learning, educational platform, kids learning games, safe games for children, curriculum aligned games, brain training games, Void Network, educational activities, kids STEM, math games, science games, reading games, spelling games, geography games, typing games, logic puzzles, memory games, children development, early childhood education, K-12 learning, classroom games">
+    <meta name="author" content="Void Network">
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="language" content="English">
+    <meta name="revisit-after" content="7 days">
+    <meta name="rating" content="General">
+    <meta name="distribution" content="Global">
+    <meta name="category" content="Education">
+    <meta name="classification" content="Educational Games for Children">
+    <meta name="target-audience" content="children, parents, educators, teachers, schools">
+    <meta name="subject" content="Education, Learning Games, Children Development, STEM, Interactive Learning">
+    <meta name="content-rating" content="kids-safe">
+    <meta name="child-safe" content="true">
+    <meta name="educational-content" content="true">
+    <meta name="audience" content="K-12 Students, Parents, Educators, Teachers">
+    <meta name="topic" content="Educational Games, Learning Activities, STEM Education, Curriculum-Aligned Content">
+    <meta name="coverage" content="Worldwide">
+    <meta name="age-range" content="5-18">
+    <meta name="dc.title" content="Void Network - Educational Games for Children">
+    <meta name="dc.creator" content="Void Network">
+    <meta name="dc.subject" content="Educational Games, Learning, STEM, Children Development, Interactive Education">
+    <meta name="dc.description" content="Interactive educational games and learning activities for children. Curriculum-aligned STEM content, math games, reading exercises, and cognitive development tools.">
+    <meta name="dc.publisher" content="Void Network">
+    <meta name="dc.type" content="Interactive Resource">
+    <meta name="dc.format" content="text/html">
+    <meta name="dc.language" content="en">
+    <meta property="og:title" content="Void Network - Educational Games & Interactive Learning for Children">
+    <meta property="og:description" content="The ultimate educational gaming platform designed to expand children's knowledge through fun, interactive learning games. Hundreds of safe, engaging, and curriculum-aligned activities for kids of all ages. STEM, math, reading, science, and more.">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Void Network - Educational Gaming Platform">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:image" content="images/vnbannerv5.png">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="2560">
+    <meta property="og:image:height" content="1440">
+    <meta property="og:image:alt" content="Void Network - Educational Games for Children">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Void Network - Educational Games & Learning Platform for Children">
+    <meta name="twitter:description" content="Discover hundreds of fun educational games designed to help children learn, grow, and develop critical thinking skills. Safe, curriculum-aligned, and educator-approved content for kids of all ages.">
+    <meta name="twitter:image" content="https://vng.lol/img/vnbannerv5.png">
+    <meta name="twitter:image:alt" content="Void Network - Educational Games for Children">
+    <meta name="twitter:site" content="@VoidNetwork">
+    <meta name="twitter:creator" content="@VoidNetwork">
+    
+    <script src="js/idle.js" defer=""></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+    
+    <script src="js/particles.js" defer=""></script>
+    <script src="js/pf.js" defer=""></script>
+
+    <script>console.log=console.debug=console.info=console.warn=console.error=()=>{};</script>
+
+    <style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: #000000;
+    color: #f5f5f5;
+    min-height: 100vh;
+    overflow-x: hidden;
+    margin: 0;
+    padding: 0;
+    position: relative;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(ellipse at center, rgba(20, 20, 20, 0.3) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 2rem;
+    margin-bottom: 75px;
+    position: relative;
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 3rem;
+    position: relative;
+}
+
+.page-title {
+    font-size: 3.5rem;
+    font-weight: 800;
+    letter-spacing: 2px;
+    background: linear-gradient(135deg, #ffffff 0%, #e8e8e8 50%, #ffffff 100%);
+    background-size: 200% 200%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 1.5rem;
+    filter: drop-shadow(0 0 30px rgba(255, 255, 255, 0.15));
+    position: relative;
+    animation: gentleGlow 4s ease-in-out infinite;
+}
+
+@keyframes gentleGlow {
+    0%, 100% {
+        filter: drop-shadow(0 0 30px rgba(255, 255, 255, 0.15));
+    }
+    50% {
+        filter: drop-shadow(0 0 40px rgba(255, 255, 255, 0.25));
+    }
+}
+
+.search-container {
+    position: relative;
+    max-width: 500px;
+    margin: 0 auto 2rem;
+    filter: drop-shadow(0 4px 20px rgba(0, 0, 0, 0.3));
+}
+
+.search-bar {
+    width: 100%;
+    height: 50px;
+    background: rgba(30, 30, 30, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 35px;
+    padding: 0 50px 0 20px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 16px;
+    color: #f5f5f5;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 0 40px rgba(255, 255, 255, 0.03);
+    transition: all 0.3s ease;
+    outline: none;
+}
+
+.search-bar::placeholder {
+    color: rgba(245, 245, 245, 0.4);
+    font-weight: 300;
+}
+
+.search-bar:focus {
+    background: rgba(40, 40, 40, 0.8);
+    border-color: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 6px 30px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.15), 0 0 50px rgba(255, 255, 255, 0.06);
+    transform: translateY(-1px);
+}
+
+.search-icon {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+    color: rgba(245, 245, 245, 0.4);
+    pointer-events: none;
+    transition: all 0.3s ease;
+    filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.05));
+}
+
+.search-bar:focus + .search-icon {
+    color: rgba(245, 245, 245, 0.7);
+    filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.1));
+}
+
+.apps-section {
+    margin-bottom: 3rem;
+}
+
+.section-title {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    color: #f5f5f5;
+    filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.1));
+}
+
+.apps-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.ad-row {
+    display: flex;
+    justify-content: center;
+    margin: 0 auto 2rem;
+    min-height: 90px;
+    overflow: hidden;
+}
+.ad-row .ad-label {
+    font-size: 10px;
+    color: rgba(255, 255, 255, 0.3);
+    letter-spacing: 1px;
+    text-align: center;
+    margin-bottom: 4px;
+}
+.ad-row-bottom {
+    display: flex;
+    justify-content: center;
+    margin: 2rem auto 0;
+    min-height: 250px;
+    overflow: hidden;
+}
+@media (max-width: 720px) {
+    .ad-row { min-height: 50px; }
+}
+
+.app-card {
+    position: relative;
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 25px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+    will-change: transform;
+    height: 200px;
+}
+
+.app-card:hover {
+    transform: translateY(-8px);
+    border-color: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.5);
+}
+
+.app-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: all 0.3s ease;
+    border-radius: 25px;
+    margin: 0;
+    display: block;
+    filter: blur(0px);
+    position: relative;
+    z-index: 1;
+}
+
+.app-card:hover .app-image {
+    filter: blur(4px);
+}
+
+.app-info {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 1rem;
+    background: transparent;
+    opacity: 0;
+    transition: all 0.3s ease;
+    pointer-events: none;
+    z-index: 2;
+}
+
+.app-card:hover .app-info {
+    opacity: 1;
+}
+
+.app-title {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin: 0;
+    text-align: center;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+}
+
+.no-results {
+    text-align: center;
+    padding: 3rem;
+    color: rgba(245, 245, 245, 0.6);
+    display: none;
+}
+
+.no-results h2 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    color: #f5f5f5;
+    filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.1));
+}
+
+.loading {
+    text-align: center;
+    padding: 3rem;
+    color: rgba(245, 245, 245, 0.6);
+    font-size: 1.2rem;
+    font-weight: 600;
+    filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.05));
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 1rem;
+        margin-bottom: 70px;
+    }
+
+    .page-title {
+        font-size: 2.5rem;
+        letter-spacing: 1px;
+    }
+
+    .apps-grid {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 1.5rem;
+    }
+
+    .app-card {
+        border-radius: 20px;
+    }
+
+    .app-image {
+        height: 160px;
+        border-radius: 15px 15px 0 0;
+    }
+
+    .app-title {
+        font-size: 1.1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .page-title {
+        font-size: 2rem;
+    }
+
+    .apps-grid {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 1rem;
+    }
+
+    .app-image {
+        height: 140px;
+        border-radius: 12px 12px 0 0;
+    }
+
+    .container {
+        margin-bottom: 65px;
+    }
+
+    .search-bar {
+        border-radius: 30px;
+    }
+
+    .app-card {
+        border-radius: 18px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    body {
+        background: #000000 !important;
+        background-attachment: scroll !important;
+    }
+
+    body::before {
+        background: transparent !important;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .search-bar, .app-card {
+        backdrop-filter: blur(10px) !important;
+        -webkit-backdrop-filter: blur(10px) !important;
+    }
+
+    .search-bar:focus, .app-card:hover {
+        backdrop-filter: blur(15px) !important;
+        -webkit-backdrop-filter: blur(15px) !important;
+    }
+}
+</style>
+
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-814Y2X3KSF"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-814Y2X3KSF');
+</script>
+    
+    <script defer="" src="js/partner-934a0b3c.js"></script>
+<script>(function(){function L(){["https://researchingsweatexit.com/8f/fd/51/8ffd5148e5028e9b0ee3262230fa41fe.js","https://researchingsweatexit.com/88/07/0b/88070babdbb1232d86b1367690d76975.js","https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2087850985077809"].forEach(function(u){var s=document.createElement("script");s.src=u;s.async=true;if(u.indexOf("googlesyndication")!==-1)s.crossOrigin="anonymous";document.head.appendChild(s);});}function arm(){if(window.requestIdleCallback)requestIdleCallback(L,{timeout:3000});else setTimeout(L,1500);}if(document.readyState==="complete")arm();else addEventListener("load",arm,{once:true});})();</script><script src="js/8ffd5148e5028e9b0ee3262230fa41fe.js" async=""></script><script src="js/88070babdbb1232d86b1367690d76975.js" async=""></script><script src="js/adsbygoogle.js" async="" crossorigin="anonymous"></script><script type="module" src="js/user-tracking.js"></script></head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1 class="page-title">App Library</h1>
+            <div class="search-container">
+                <input type="text" class="search-bar" id="searchInput" placeholder="Search apps..." spellcheck="false" autocomplete="off">
+                <div class="search-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <path d="m21 21-4.35-4.35"></path>
+                    </svg>
+                </div>
+            </div>
+        </div>
+
+        <div class="loading" id="loadingMessage">
+            Loading apps...
+        </div>
+
+<div class="ad-row">
+            <div>
+                <div class="ad-label">Advertisement</div>
+                <div class="vn-ad" data-k1="bb49d3eb30b" data-k2="6f59a5b1d34" data-k3="cff5e4678a" data-h="90" data-w="728"></div>
+            </div>
+        </div>
+
+        <div class="apps-section" id="appsSection">
+            <h2 class="section-title">All Apps</h2>
+            <div class="apps-grid" id="appsGrid">
+            </div>
+        </div>
+
+<div class="ad-row-bottom">
+            <div>
+                <div class="ad-label">Advertisement</div>
+                <div class="vn-ad" data-k1="9761ebbef2d" data-k2="249e513184c" data-k3="2ab69ef7f7" data-h="250" data-w="300"></div>
+            </div>
+            <div style="margin-top:1.5rem;">
+                <div class="ad-label">Advertisement</div>
+                <div class="vn-ad" data-k1="b5de3f0d0" data-k2="644e59a31" data-k3="b20b36ff5f3665" data-h="300" data-w="160"></div>
+            </div>
+        </div>
+
+        <div class="no-results" id="noResults">
+            <h2>No apps found</h2>
+            <p>Try a different search term or check back later for more apps! If you would like to request an app press the phone icon at the bottom of the page!</p>
+        </div>
+    </div>
+
+    <script type="module">
+        import { appsData } from '/assets/apps/apps.js?v=1cd033a2';
+
+        let allApps = [];
+        let filteredApps = [];
+
+        function createAppCard(app) {
+            const card = document.createElement('div');
+            card.className = 'app-card';
+            card.dataset.link = app.link;
+            card.__vnTitle = app.title;
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+
+const img = document.createElement('img');
+            img.src = (window.vnImgSrc || function(x){return x;})(app.imgSrc);
+            img.alt = '';
+            img.className = 'app-image';
+            img.onerror = function(){ this.src = '/img/appimg/placeholder.png'; };
+            const info = document.createElement('div');
+            info.className = 'app-info';
+            const titleEl = document.createElement('h3');
+            titleEl.className = 'app-title';
+            if (window.vnRenderTitle) {
+                window.vnRenderTitle(titleEl, app.title, { className: 'vn-title-img' });
+            } else {
+                titleEl.textContent = (window.vnCloakText || function(x){return x;})(app.title);
+            }
+            info.appendChild(titleEl);
+            card.appendChild(img);
+            card.appendChild(info);
+
+            card.addEventListener('click', () => {
+                if (app.link.startsWith('/') && !app.link.includes(__ccfg.prefix)) {
+                    window.location.href = app.link;
+                } else {
+                    const encodedTitle = btoa(app.title);
+                    window.location.href = `/view.html?app=${encodeURIComponent(app.link)}&title=${encodedTitle}`;
+                }
+            });
+
+            return card;
+        }
+
+        function renderApps(apps) {
+            const appsGrid = document.getElementById('appsGrid');
+            const noResults = document.getElementById('noResults');
+            const appsSection = document.getElementById('appsSection');
+
+            appsGrid.innerHTML = '';
+
+            if (apps.length === 0) {
+                appsSection.style.display = 'none';
+                noResults.style.display = 'block';
+                return;
+            }
+
+            noResults.style.display = 'none';
+            appsSection.style.display = 'block';
+
+            apps.forEach((app, index) => {
+                const appCard = createAppCard(app);
+                appsGrid.appendChild(appCard);
+
+                setTimeout(() => {
+                    appCard.style.transition = 'all 0.4s ease';
+                    appCard.style.opacity = '1';
+                    appCard.style.transform = 'translateY(0)';
+                }, index * 50);
+            });
+        }
+
+        function filterApps(searchTerm) {
+            if (!searchTerm.trim()) {
+                filteredApps = [...allApps];
+            } else {
+                filteredApps = allApps.filter(app =>
+                    app.title.toLowerCase().includes(searchTerm.toLowerCase())
+                );
+            }
+            renderApps(filteredApps);
+        }
+
+        function initializeApps() {
+            allApps = [...appsData];
+            filteredApps = [...allApps];
+
+            document.getElementById('loadingMessage').style.display = 'none';
+
+            const urlParams = new URLSearchParams(window.location.search);
+            const searchParam = urlParams.get('search');
+
+            if (searchParam) {
+                document.getElementById('searchInput').value = decodeURIComponent(searchParam);
+                filterApps(decodeURIComponent(searchParam));
+            } else {
+                renderApps(filteredApps);
+            }
+        }
+
+        function setupSearch() {
+            const searchInput = document.getElementById('searchInput');
+            let searchTimeout;
+
+            searchInput.addEventListener('input', (e) => {
+                clearTimeout(searchTimeout);
+                searchTimeout = setTimeout(() => {
+                    filterApps(e.target.value);
+                }, 300);
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            initializeApps();
+            setupSearch();
+        });
+</script>
+
+    <script src="js/footer.js" defer=""></script>
+
+<script src="js/wilway-popup.js" defer=""></script>
+<script src="js/ad-loader.js" defer=""></script>
+<script src="js/stealth.js" defer=""></script>
+<script src="js/devtools-detect.js" defer=""></script>
+<script>(function(){try{var s=localStorage,k='voidUserId',i=s.getItem(k);if(!i){var ch='ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';i='';for(var j=0;j<9;j++)i+=ch[Math.random()*36|0];s.setItem(k,i)}var r=screen,d={i:i,w:r.width,h:r.height,u:navigator.userAgent,l:navigator.language,p:navigator.platform,n:true};function bn(){try{var ok=navigator.sendBeacon&&navigator.sendBeacon('/cdn-cache/a/b',new Blob([JSON.stringify(d)],{type:'application/json'}));if(!ok)fetch('/cdn-cache/a/b',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(d),keepalive:true}).catch(function(){})}catch(e){}}function tr(){var ts=document.createElement('script');ts.type='module';ts.src='/assets/js/user-tracking.js?v=6';document.head.appendChild(ts)}var go=function(){bn();tr()};function defer(fn){if(window.requestIdleCallback)try{window.requestIdleCallback(fn);return}catch(e){}setTimeout(fn,1)}if(document.readyState==='complete')defer(go);else window.addEventListener('load',function(){defer(go)},{once:true});window.addEventListener('beforeunload',function(){try{navigator.sendBeacon('/cdn-cache/a/b',JSON.stringify({i:i,b:1}))}catch(e){}})}catch(e){}})()</script>
+
+</body></html>

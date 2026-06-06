@@ -1,0 +1,214 @@
+<!DOCTYPE html><html lang="en" dir="ltr"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="referrer" content="origin">
+
+<meta name="description" content="Online student portal. Access courses, assignments, study materials, and the digital library.">
+<meta name="keywords" content="student portal, online learning, coursework, assignments, study materials, digital library, education">
+<meta name="application-name" content="Student Portal">
+<meta name="theme-color" content="#1a73e8">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Student Portal">
+<meta property="og:title" content="Student Portal">
+<meta property="og:type" content="website">
+<meta property="og:description" content="Online learning hub for students. Coursework, assignments, study tools, and library access.">
+<meta property="og:site_name" content="Student Portal">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Student Portal">
+<meta name="twitter:description" content="Online learning hub for students.">
+<title>Student Portal</title>
+<link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCI+PHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iMTAiIGZpbGw9IiMxYTczZTgiLz48cGF0aCBkPSJNMzIgMTBMNTIgMjF2MjJMMzIgNTQgMTIgNDNWMjFMMzIgMTB6IiBmaWxsPSIjZmZmIi8+PC9zdmc+">
+<link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCI+PHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iMTAiIGZpbGw9IiMxYTczZTgiLz48cGF0aCBkPSJNMzIgMTBMNTIgMjF2MjJMMzIgNTQgMTIgNDNWMjFMMzIgMTB6IiBmaWxsPSIjZmZmIi8+PC9zdmc+">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif; background: #f5f7fb; color: #202124; }
+
+.topbar {
+  height: 60px;
+  display: flex;
+  align-items: center;
+  padding: 0 24px;
+  background: #fff;
+  border-bottom: 1px solid #e0e3e8;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.brand { display: flex; align-items: center; gap: 10px; font-weight: 600; font-size: 18px; color: #1a73e8; }
+.brand-mark { width: 32px; height: 32px; background: #1a73e8; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 700; font-size: 14px; }
+.topbar-spacer { flex: 1; }
+.topbar-actions { display: flex; align-items: center; gap: 12px; }
+.topbar-link { color: #5f6368; font-size: 14px; text-decoration: none; padding: 6px 10px; border-radius: 6px; }
+.topbar-link:hover { background: #f1f3f4; }
+.avatar { width: 36px; height: 36px; border-radius: 50%; background: #1a73e8; color: #fff; display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 14px; }
+
+.container { max-width: 1100px; margin: 0 auto; padding: 28px 24px; }
+h1 { font-size: 22px; font-weight: 500; margin-bottom: 8px; color: #202124; }
+.subhead { color: #5f6368; font-size: 14px; margin-bottom: 24px; }
+
+.tile-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 18px; }
+.tile { background: #fff; border: 1px solid #e0e3e8; border-radius: 10px; overflow: hidden; transition: box-shadow .15s ease; }
+.tile:hover { box-shadow: 0 2px 12px rgba(60,64,67,.12); }
+.tile-banner { height: 88px; background: linear-gradient(135deg, #1a73e8, #4285f4); padding: 14px 18px; color: #fff; display: flex; flex-direction: column; justify-content: space-between; }
+.tile-title { font-size: 17px; font-weight: 500; }
+.tile-section { font-size: 12px; opacity: .85; }
+.tile-body { padding: 14px 18px; min-height: 100px; }
+.tile-meta { color: #5f6368; font-size: 13px; }
+.tile-footer { padding: 10px 18px; border-top: 1px solid #f0f2f5; display: flex; justify-content: space-between; align-items: center; }
+.btn-text { background: none; border: none; color: #1a73e8; font-size: 13px; cursor: pointer; padding: 4px 8px; border-radius: 4px; }
+.btn-text:hover { background: #e8f0fe; }
+
+.section-divider { margin: 32px 0 18px; font-size: 14px; color: #5f6368; font-weight: 500; text-transform: uppercase; letter-spacing: 0.04em; }
+
+.card { background: #fff; border: 1px solid #e0e3e8; border-radius: 10px; padding: 18px 22px; margin-bottom: 14px; }
+.card-row { display: flex; align-items: center; gap: 14px; }
+.card-icon { width: 40px; height: 40px; border-radius: 50%; background: #e8f0fe; color: #1a73e8; display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
+.card-title { font-weight: 500; font-size: 15px; color: #202124; }
+.card-meta { font-size: 13px; color: #5f6368; margin-top: 2px; }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <div class="brand">
+    <div class="brand-mark">SP</div>
+    <span>Student Portal</span>
+  </div>
+  <div class="topbar-spacer"></div>
+  <nav class="topbar-actions">
+    <a href="#" class="topbar-link">Classes</a>
+    <a href="#" class="topbar-link">Calendar</a>
+    <a href="#" class="topbar-link">Library</a>
+    <div class="avatar">S</div>
+  </nav>
+</header>
+
+<main class="container">
+  <h1>Welcome back</h1>
+  <p class="subhead">Pick up where you left off, or browse your enrolled courses below.</p>
+
+  <div class="tile-grid">
+    <div class="tile">
+      <div class="tile-banner">
+        <div class="tile-title">Introduction to Algebra</div>
+        <div class="tile-section">Section A · Period 2</div>
+      </div>
+      <div class="tile-body">
+        <div class="tile-meta">3 assignments due this week</div>
+      </div>
+      <div class="tile-footer">
+        <button class="btn-text">Open course</button>
+        <button class="btn-text">Materials</button>
+      </div>
+    </div>
+
+    <div class="tile">
+      <div class="tile-banner" style="background:linear-gradient(135deg,#34a853,#188038)">
+        <div class="tile-title">Earth Science</div>
+        <div class="tile-section">Section B · Period 3</div>
+      </div>
+      <div class="tile-body">
+        <div class="tile-meta">New reading available: Plate Tectonics</div>
+      </div>
+      <div class="tile-footer">
+        <button class="btn-text">Open course</button>
+        <button class="btn-text">Materials</button>
+      </div>
+    </div>
+
+    <div class="tile">
+      <div class="tile-banner" style="background:linear-gradient(135deg,#ea4335,#c5221f)">
+        <div class="tile-title">English Literature</div>
+        <div class="tile-section">Section A · Period 4</div>
+      </div>
+      <div class="tile-body">
+        <div class="tile-meta">Essay draft due Friday</div>
+      </div>
+      <div class="tile-footer">
+        <button class="btn-text">Open course</button>
+        <button class="btn-text">Materials</button>
+      </div>
+    </div>
+
+    <div class="tile">
+      <div class="tile-banner" style="background:linear-gradient(135deg,#f9ab00,#e37400)">
+        <div class="tile-title">World History</div>
+        <div class="tile-section">Section C · Period 5</div>
+      </div>
+      <div class="tile-body">
+        <div class="tile-meta">Quiz scheduled for Thursday</div>
+      </div>
+      <div class="tile-footer">
+        <button class="btn-text">Open course</button>
+        <button class="btn-text">Materials</button>
+      </div>
+    </div>
+
+    <div class="tile">
+      <div class="tile-banner" style="background:linear-gradient(135deg,#9334e6,#7627bb)">
+        <div class="tile-title">Spanish I</div>
+        <div class="tile-section">Section A · Period 6</div>
+      </div>
+      <div class="tile-body">
+        <div class="tile-meta">Vocabulary practice available</div>
+      </div>
+      <div class="tile-footer">
+        <button class="btn-text">Open course</button>
+        <button class="btn-text">Materials</button>
+      </div>
+    </div>
+
+    <div class="tile">
+      <div class="tile-banner" style="background:linear-gradient(135deg,#1e88e5,#1565c0)">
+        <div class="tile-title">Computer Science Basics</div>
+        <div class="tile-section">Section B · Period 7</div>
+      </div>
+      <div class="tile-body">
+        <div class="tile-meta">Lab exercise: variables and types</div>
+      </div>
+      <div class="tile-footer">
+        <button class="btn-text">Open course</button>
+        <button class="btn-text">Materials</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-divider">Upcoming</div>
+
+  <div class="card">
+    <div class="card-row">
+      <div class="card-icon">📝</div>
+      <div>
+        <div class="card-title">Algebra: Chapter 3 problem set</div>
+        <div class="card-meta">Due tomorrow at 11:59 PM</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-row">
+      <div class="card-icon">📖</div>
+      <div>
+        <div class="card-title">English: Read pages 42–68</div>
+        <div class="card-meta">Due Friday</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-row">
+      <div class="card-icon">🧪</div>
+      <div>
+        <div class="card-title">Earth Science: Lab worksheet</div>
+        <div class="card-meta">Due Monday at 8:00 AM</div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<script>if(location.pathname==='/'||location.pathname==='/index.html')location.replace('/?/');</script>
+
+
+</body></html>
