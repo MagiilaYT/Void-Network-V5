@@ -3,7 +3,7 @@
 
     const footerConfig = {
         logo: {
-            src: "/img/logo.png?v=2",
+            src: ".../images/vnbannerv5.png",
             alt: "Home",
             href: "/home.html"
         },
